@@ -39,6 +39,7 @@ label {
 input[type="text"],
 input[type="email"],
 input[type="datetime-local"],
+input[type="number"],
 textarea,
 select {
 	width: calc(100% - 24px);
@@ -53,6 +54,7 @@ select {
 input[type="text"]:focus,
 input[type="email"]:focus,
 input[type="datetime-local"]:focus,
+input[type="number"]:focus,
 textarea:focus,
 select:focus {
 	border-color: #007bff;
@@ -113,6 +115,41 @@ input[type="submit"]:hover,
 	background-color: #d4edda;
 	border: 1px solid #c3e6cb;
 	border-radius: 5px;
+}
+
+/* Seats */
+.seats {
+	display: flex;
+	flex-wrap: wrap;
+	margin: 10px 0;
+}
+
+.seats button {
+	width: 50px;
+	height: 50px;
+	margin: 3px;
+	border: 1px solid #999;
+	border-radius: 6px;
+	background-color: #ADD8E6;
+	/* 予約可能：薄い水色 */
+	cursor: pointer;
+	font-weight: bold;
+	transition: transform 0.2s ease, background-color 0.3s ease;
+}
+
+.seats button:hover {
+	transform: translateY(-2px);
+}
+
+.seats button.selected {
+	background-color: #6495ED;
+	/* 選択中：濃い水色 */
+}
+
+.seats button:disabled {
+	background-color: #CCCCCC;
+	/* 予約不可：灰色 */
+	cursor: not-allowed;
 }
 
 /* For tables */
