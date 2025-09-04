@@ -7,20 +7,34 @@
 <title>簡易予約システム</title>
 <link rel="stylesheet" href="style.css">
 <script>
-        // 席選択の自動反映
-        function selectSeat(seatId) {
-            const seatButton = document.getElementById(seatId);
-            const seatsInput = document.getElementById('seats');
-            let selectedSeats = seatsInput.value ? seatsInput.value.split(',') : [];
+    // 席選択ボタンの選択/解除
+    function selectSeat(seatId) {
+        const seatButton = document.getElementById(seatId);
+        const seatsInput = document.getElementById('seats');
+        let selectedSeats = seatsInput.value ? seatsInput.value.split(',') : [];
 
-            if (selectedSeats.includes(seatId)) {
-                selectedSeats = selectedSeats.filter(s => s !== seatId);
-            } else {
-                selectedSeats.push(seatId);
-            }
-            seatsInput.value = selectedSeats.join(',');
+        if (selectedSeats.includes(seatId)) {
+            selectedSeats = selectedSeats.filter(s => s !== seatId);
+            seatButton.classList.remove("selected"); // 選択解除
+        } else {
+            selectedSeats.push(seatId);
+            seatButton.classList.add("selected"); // 選択
         }
-    </script>
+
+        seatsInput.value = selectedSeats.join(',');
+    }
+
+    // ページロード時に既存の予約席を反映
+    window.onload = function() {
+        const seatsInput = document.getElementById('seats');
+        if (seatsInput.value) {
+            seatsInput.value.split(',').forEach(seatId => {
+                const btn = document.getElementById(seatId);
+                if (btn) btn.classList.add("selected");
+            });
+        }
+    };
+</script>
 </head>
 <body>
 	<div class="container">

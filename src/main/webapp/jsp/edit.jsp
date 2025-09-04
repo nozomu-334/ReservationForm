@@ -7,29 +7,32 @@
 <title>予約編集</title>
 <link rel="stylesheet" href="../style.css">
 <script>
-        // 席選択の自動反映
-        function selectSeat(seatId) {
-            const seatButton = document.getElementById(seatId);
-            const seatsInput = document.getElementById('seats');
-            let selectedSeats = seatsInput.value ? seatsInput.value.split(',') : [];
+    function selectSeat(seatId) {
+        const seatButton = document.getElementById(seatId);
+        const seatsInput = document.getElementById('seats');
+        let selectedSeats = seatsInput.value ? seatsInput.value.split(',') : [];
 
-            if (selectedSeats.includes(seatId)) {
-                selectedSeats = selectedSeats.filter(s => s !== seatId); 
-            } else {
-                selectedSeats.push(seatId);
-            }
-            seatsInput.value = selectedSeats.join(',');
+        if (selectedSeats.includes(seatId)) {
+            selectedSeats = selectedSeats.filter(s => s !== seatId);
+            seatButton.classList.remove("selected");
+        } else {
+            selectedSeats.push(seatId);
+            seatButton.classList.add("selected");
         }
 
-        window.onload = function() {
-            const seatsInput = document.getElementById('seats');
-            if (seatsInput.value) {
-                seatsInput.value.split(',').forEach(seatId => {
-                    const btn = document.getElementById(seatId);
-                });
-            }
+        seatsInput.value = selectedSeats.join(',');
+    }
+
+    window.onload = function() {
+        const seatsInput = document.getElementById('seats');
+        if (seatsInput.value) {
+            seatsInput.value.split(',').forEach(seatId => {
+                const btn = document.getElementById(seatId);
+                if (btn) btn.classList.add("selected");
+            });
         }
-    </script>
+    };
+</script>
 </head>
 <body>
 	<div class="container">
@@ -59,8 +62,7 @@
 			<div class="seats">
 				<c:forEach var="seat"
 					items="${['M1','M2','M3','C1','C2','C3','C4','1','2','3','4','5','6','7','8','9','10','O1','O2','O3','O4','O5','O6','O7','O8','O9','O10']}">
-					<button type="button" id="${seat}" onclick="selectSeat('${seat}')"
-						>${seat}</button>
+					<button type="button" id="${seat}" onclick="selectSeat('${seat}')">${seat}</button>
 				</c:forEach>
 			</div>
 			</p>
